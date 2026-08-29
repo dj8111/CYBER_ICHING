@@ -2147,16 +2147,23 @@
     },
 
     openShareModal(isReadingShare) {
+      this.isReadingShare = !!isReadingShare;
       const modal = document.getElementById('share-action-modal');
       const heading = document.getElementById('share-modal-heading');
+      const qrDesc = document.getElementById('share-qr-desc');
+      const copyReportBtn = document.getElementById('btn-copy-ascii-report');
       if (!modal) return;
 
       let shareUrl = window.location.href.split('?')[0];
-      if (isReadingShare && this.currentReading) {
+      if (this.isReadingShare && this.currentReading) {
         shareUrl = this.generateShareUrl(this.currentReading);
         if (heading) heading.textContent = `[ SHARE // 第 ${this.currentReading.primaryHex.id} 卦 ${this.currentReading.primaryHex.full_name} 專屬占斷 ]`;
+        if (qrDesc) qrDesc.textContent = '手機直接掃描此二維碼，即可在行動裝置上自動還原此卦象與完整解讀！';
+        if (copyReportBtn) copyReportBtn.style.display = 'block';
       } else {
         if (heading) heading.textContent = '[ SHARE_MATRIX // 賽博易斷系統網址分享 ]';
+        if (qrDesc) qrDesc.textContent = '手機直接掃描此二維碼，即可隨時在行動裝置開啟賽博易斷 (CyberIChing) 系統！';
+        if (copyReportBtn) copyReportBtn.style.display = 'none';
       }
 
       const urlDisplay = document.getElementById('share-url-text');
@@ -2173,8 +2180,12 @@
       this.currentReading = reading;
     },
 
+    getSiteUrl() {
+      return window.location.href.split('?')[0];
+    },
+
     generateShareUrl(reading) {
-      if (!reading) return window.location.href;
+      if (!reading) return this.getSiteUrl();
       const base = window.location.origin + window.location.pathname;
       const movingStr = (reading.movingPositions || []).join(',');
       const qStr = encodeURIComponent(reading.question || '');
@@ -2183,48 +2194,62 @@
     },
 
     shareLine() {
-      if (!this.currentReading) return;
       sound.playClick();
-      const r = this.currentReading;
-      const url = this.generateShareUrl(r);
-      const text = `【賽博易斷 CyberIChing 占斷報告】\n` +
-        `問事：${r.question}（${r.category}）\n` +
-        `卦象：本卦【${r.primaryHex.full_name}】` +
-        (r.movingPositions.length > 0 ? ` ➔ 之卦【${r.changedHex.full_name}】` : '') + `\n` +
-        `焦點斷語：${r.zhuXi.ruleSummary}\n` +
-        `專屬占斷連結：${url}`;
+      let text = '';
+      if (this.isReadingShare && this.currentReading) {
+        const r = this.currentReading;
+        const url = this.generateShareUrl(r);
+        text = `【賽博易斷 CyberIChing 占斷報告】\n` +
+          `問事：${r.question}（${r.category}）\n` +
+          `卦象：本卦【${r.primaryHex.full_name}】` +
+          (r.movingPositions.length > 0 ? ` ➔ 之卦【${r.changedHex.full_name}】` : '') + `\n` +
+          `焦點斷語：${r.zhuXi.ruleSummary}\n` +
+          `專屬占斷連結：${url}`;
+      } else {
+        const url = this.getSiteUrl();
+        text = `【賽博易斷 CyberIChing】\n` +
+          `結合《周易》古法、朱熹動爻定則與高島易斷占例的 8-Bit 像素占卜與學習系統！\n` +
+          `立即開啟：${url}`;
+      }
       window.open(`https://line.me/R/msg/text/?${encodeURIComponent(text)}`, '_blank');
     },
 
     shareFacebook() {
-      if (!this.currentReading) return;
       sound.playClick();
-      const url = this.generateShareUrl(this.currentReading);
+      const url = (this.isReadingShare && this.currentReading) ? this.generateShareUrl(this.currentReading) : this.getSiteUrl();
       window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank', 'width=600,height=500');
     },
 
     shareEmail() {
-      if (!this.currentReading) return;
       sound.playClick();
-      const r = this.currentReading;
-      const url = this.generateShareUrl(r);
-      const subject = `【賽博易斷占斷報告】${r.question} - ${r.primaryHex.full_name}`;
-      const body = `【賽博易斷 CyberIChing 專屬占斷結果】\n\n` +
-        `占問事項：${r.question} (${r.category})\n` +
-        `本卦：${r.primaryHex.full_name}\n之卦：${r.changedHex.full_name}\n\n` +
-        `【朱熹動爻分析】\n${r.zhuXi.ruleTitle} - ${r.zhuXi.ruleSummary}\n\n` +
-        `【卦辭】\n${r.primaryHex.judgment}\n\n` +
-        `【高島易斷】\n${r.primaryHex.takashima_summary}\n\n` +
-        `【現代行動指引】\n${r.primaryHex.modern_action}\n\n` +
-        `線上查看：${url}`;
-      window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      if (this.isReadingShare && this.currentReading) {
+        const r = this.currentReading;
+        const url = this.generateShareUrl(r);
+        const subject = `【賽博易斷占斷報告】${r.question} - ${r.primaryHex.full_name}`;
+        const body = `【賽博易斷 CyberIChing 專屬占斷結果】\n\n` +
+          `占問事項：${r.question} (${r.category})\n` +
+          `本卦：${r.primaryHex.full_name}\n之卦：${r.changedHex.full_name}\n\n` +
+          `【朱熹動爻分析】\n${r.zhuXi.ruleTitle} - ${r.zhuXi.ruleSummary}\n\n` +
+          `【卦辭】\n${r.primaryHex.judgment}\n\n` +
+          `【高島易斷】\n${r.primaryHex.takashima_summary}\n\n` +
+          `【現代行動指引】\n${r.primaryHex.modern_action}\n\n` +
+          `線上查看：${url}`;
+        window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      } else {
+        const url = this.getSiteUrl();
+        const subject = `推薦一個很棒的易經占卜與學習系統：賽博易斷 CyberIChing`;
+        const body = `推薦您試用「賽博易斷 CyberIChing」：\n\n` +
+          `結合 8-Bit 像素復古介面、周易六十四卦、高島易斷占例與朱熹動爻定則的現代決策占卜系統！\n\n` +
+          `線上體驗網址：${url}`;
+        window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      }
     },
 
     copyShareUrl() {
-      if (!this.currentReading) return;
       sound.playClick();
-      navigator.clipboard.writeText(this.generateShareUrl(this.currentReading)).then(() => {
-        showToast("✓ 專屬占斷網址已複製至剪貼簿！");
+      const url = (this.isReadingShare && this.currentReading) ? this.generateShareUrl(this.currentReading) : this.getSiteUrl();
+      navigator.clipboard.writeText(url).then(() => {
+        showToast(this.isReadingShare ? "✓ 專屬占斷網址已複製至剪貼簿！" : "✓ 賽博易斷系統網址已複製至剪貼簿！");
       }).catch(() => showToast("複製失敗。"));
     },
 
@@ -2289,7 +2314,7 @@ ${asciiLines.join('\n')}
       if (!this.qrCanvas) return;
       sound.playClick();
       const link = document.createElement('a');
-      link.download = `CyberIChing_Hex_${this.currentReading ? this.currentReading.primaryHex.id : 'divination'}.png`;
+      link.download = `CyberIChing_${(this.isReadingShare && this.currentReading) ? 'Hex_' + this.currentReading.primaryHex.id : 'Site'}.png`;
       link.href = this.qrCanvas.toDataURL('image/png');
       link.click();
       showToast("✓ 像素 QRCode 圖片已下載！");
