@@ -2358,6 +2358,41 @@ ${asciiLines.join('\n')}
     codexManager.init();
     shareManager.init();
 
+    // 系統開頭免責聲明覆蓋層 (Disclaimer Overlay - 每次連線 session 首次提醒)
+    const disclaimerOverlay = document.getElementById('disclaimer-modal-overlay');
+    const acceptDisclaimerBtn = document.getElementById('btn-accept-disclaimer');
+    const declineDisclaimerBtn = document.getElementById('btn-decline-disclaimer');
+
+    if (disclaimerOverlay && acceptDisclaimerBtn) {
+      let isAccepted = false;
+      try {
+        isAccepted = sessionStorage.getItem('cyber_iching_disclaimer_accepted') === '1';
+      } catch (e) {}
+
+      if (!isAccepted) {
+        disclaimerOverlay.style.display = 'flex';
+      }
+
+      acceptDisclaimerBtn.addEventListener('click', () => {
+        sound.playSuccess();
+        disclaimerOverlay.style.display = 'none';
+        try {
+          sessionStorage.setItem('cyber_iching_disclaimer_accepted', '1');
+        } catch (e) {}
+      });
+
+      if (declineDisclaimerBtn) {
+        declineDisclaimerBtn.addEventListener('click', () => {
+          sound.playError();
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            window.location.href = 'https://www.google.com';
+          }
+        });
+      }
+    }
+
     // 檢查 URL 參數
     const params = new URLSearchParams(window.location.search);
     const hexId = params.get('hex');

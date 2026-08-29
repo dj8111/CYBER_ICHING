@@ -671,6 +671,88 @@
   letter-spacing: 1px;
 }
 
+/* =========================================================================
+   11. 免責聲明與提醒全螢幕覆蓋層 (Disclaimer Overlay)
+   ========================================================================= */
+.disclaimer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(3, 6, 10, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.disclaimer-card {
+  background: #080e16;
+  border: 2px solid var(--crt-amber);
+  box-shadow: 0 0 24px rgba(255, 176, 0, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  max-width: 520px;
+  width: 100%;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.disclaimer-header-single {
+  font-family: var(--font-terminal);
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--crt-amber);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px dashed #26384f;
+  padding-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.disclaimer-compact-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #b0cbe6;
+}
+
+.disclaimer-compact-body p {
+  margin: 0;
+  background: #0c1420;
+  border: 1px solid #1c2b3e;
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.disclaimer-compact-body strong {
+  color: #ffffff;
+}
+
+.disclaimer-actions-row {
+  display: flex;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.disclaimer-actions-row button {
+  letter-spacing: 1px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
 /* 八卦五行色彩體系 (Eight Trigrams Elemental Palette) */
 .trig-tag-qian { color: #ffd700; font-weight: bold; } /* 乾天·金 */
 .trig-tag-kun  { color: #e0a96d; font-weight: bold; } /* 坤地·土 */
