@@ -214,7 +214,7 @@
       modern_action: "策劃激勵團隊的慶祝與發布活動。在熱烈氛圍中凝聚士氣，同時制定風險應對清單。"
     },
     {
-      id: 17, name: "隨", full_name: "澤雷隨", pinyin: "Suí", binary_code: "100110",
+      id: 17, name: "隨", full_name: "澤雷隨", pinyin: "Suí", binary_code: "100011",
       upper_trigram: "兌", lower_trigram: "震", upper_nature: "澤", lower_nature: "雷",
       structure: "澤中有雷，順應時勢", core_theme: "隨順客觀，隨方就圓，擇善而從",
       judgment: "隨：元亨利貞，無咎。",
@@ -646,7 +646,7 @@
       modern_action: "嚴格設定止損點與邊界。專注核心職責，拒絕盲目跨界追逐熱點，靜心打磨基本功。"
     },
     {
-      id: 53, name: "漸", full_name: "風山漸", pinyin: "Jiàn", binary_code: "001011",
+      id: 53, name: "漸", full_name: "風山漸", pinyin: "Jiàn", binary_code: "001110",
       upper_trigram: "巽", lower_trigram: "艮", upper_nature: "風", lower_nature: "山",
       structure: "山上生木，循序漸進", core_theme: "鴻鵠漸進，遵循禮序，按部就班",
       judgment: "漸：女歸吉，利貞。",
@@ -658,7 +658,7 @@
       modern_action: "制定清晰的中長期路線圖。不跳步、不走偏門，扎實完成每個里程碑節點。"
     },
     {
-      id: 54, name: "歸妹", full_name: "雷澤歸妹", pinyin: "Guī Mèi", binary_code: "110100",
+      id: 54, name: "歸妹", full_name: "雷澤歸妹", pinyin: "Guī Mèi", binary_code: "011100",
       upper_trigram: "震", lower_trigram: "兌", upper_nature: "雷", lower_nature: "澤",
       structure: "澤上有雷，少女妄動", core_theme: "急躁結合，名分未正，防終有憾",
       judgment: "歸妹：征凶，無攸利。",
