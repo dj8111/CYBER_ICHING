@@ -1,0 +1,319 @@
+/* ==========================================================================
+   賽博易斷 (CyberIChing) - 3D 像素卡牌與 steps(6) 翻轉動效 (card.css)
+   ========================================================================== */
+
+/* 3D 卡牌容器 */
+.card-perspective-container {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+/* 8-bit 硬派定格翻轉卡牌本體 (Flip Card) */
+.pixel-card {
+  width: 280px;
+  height: 380px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s steps(6);
+  cursor: pointer;
+}
+
+/* 翻轉狀態 */
+.pixel-card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* 卡牌正反面基礎造型 */
+.card-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  background: var(--terminal-card-bg);
+  border: 3px solid var(--crt-border);
+  box-shadow: 
+    0 0 0 2px #000,
+    0 10px 25px rgba(0, 0, 0, 0.7),
+    inset 0 0 15px rgba(0, 255, 102, 0.05);
+}
+
+/* 卡牌背面 (未揭曉或題幹面) */
+.card-face.card-back {
+  background: #0e1620 radial-gradient(#152333 15%, transparent 16%) 0 0 / 16px 16px;
+  border-color: var(--crt-cyan);
+  box-shadow: 0 0 15px var(--crt-cyan-glow);
+}
+
+.card-face.card-back .card-back-pattern {
+  flex: 1;
+  border: 2px dashed var(--crt-cyan);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  text-align: center;
+}
+
+.card-back-icon {
+  font-size: 38px;
+  text-shadow: 0 0 12px var(--crt-cyan);
+  animation: float 2s infinite ease-in-out;
+}
+
+.card-back-title {
+  font-family: var(--font-pixel-en);
+  font-size: 11px;
+  color: var(--crt-cyan);
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+.card-back-hint {
+  font-family: var(--font-terminal);
+  font-size: 16px;
+  color: var(--crt-text-dim);
+}
+
+/* 卡牌正面 (揭曉答案或卦象面) */
+.card-face.card-front {
+  transform: rotateY(180deg);
+  border-color: var(--crt-green);
+  box-shadow: 0 0 20px var(--crt-green-glow);
+}
+
+.card-header-badge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-pixel-en);
+  font-size: 9px;
+  color: var(--crt-amber);
+  border-bottom: 1px dashed var(--crt-border);
+  padding-bottom: 8px;
+}
+
+.card-binary-badge {
+  background: #000;
+  padding: 2px 6px;
+  border: 1px solid var(--crt-amber);
+  border-radius: 4px;
+}
+
+/* 6 爻像素繪製容器 */
+.hexagram-visual-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #080d14;
+  border: 1px solid #1a293a;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+/* 單爻線條排版 (初爻在下，上爻在上，故由上至下渲染 index 5 到 0) */
+.hex-line-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  height: 14px;
+  position: relative;
+}
+
+.hex-line-pos-label {
+  font-family: var(--font-terminal);
+  font-size: 14px;
+  color: #4a667d;
+  width: 28px;
+}
+
+.hex-line-graphic {
+  flex: 1;
+  height: 10px;
+  display: flex;
+  gap: 12px;
+}
+
+/* 陽爻 (⚊) - 整條連續發光像素條 */
+.hex-line-graphic.yang .line-bar {
+  flex: 1;
+  background: var(--crt-green);
+  border-radius: 2px;
+  box-shadow: 0 0 6px var(--crt-green-glow);
+}
+
+/* 陰爻 (⚋) - 兩截斷開像素條 */
+.hex-line-graphic.yin .line-bar {
+  flex: 1;
+  background: var(--crt-green);
+  border-radius: 2px;
+  box-shadow: 0 0 6px var(--crt-green-glow);
+}
+
+/* 動爻閃爍與霓虹流光特效 (Moving Lines Neon Pulse) */
+.hex-line.moving {
+  background: var(--crt-red) !important;
+  box-shadow: 0 0 12px var(--crt-red), 0 0 24px rgba(255, 42, 95, 0.7);
+  animation: movingLinePulse 1.2s infinite ease-in-out;
+  position: relative;
+}
+
+.hex-line.moving::before {
+  content: "⚡動";
+  position: absolute;
+  right: -32px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-pixel-en);
+  font-size: 8px;
+  color: var(--crt-red);
+  text-shadow: 0 0 8px var(--crt-red);
+  font-weight: bold;
+  animation: blink 0.8s infinite;
+}
+
+.hex-line.moving.yin .hex-line-segment {
+  background: var(--crt-red) !important;
+  box-shadow: 0 0 10px var(--crt-red);
+}
+
+@keyframes movingLinePulse {
+  0%, 100% {
+    filter: brightness(1);
+    box-shadow: 0 0 8px var(--crt-red), 0 0 16px rgba(255, 42, 95, 0.5);
+  }
+  50% {
+    filter: brightness(1.4);
+    box-shadow: 0 0 18px var(--crt-red), 0 0 32px rgba(255, 42, 95, 0.9);
+  }
+}
+
+/* 卡牌文字資訊 */
+.card-hex-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 10px var(--crt-green);
+  margin-top: 4px;
+}
+
+.card-hex-trigrams {
+  font-family: var(--font-terminal);
+  font-size: 16px;
+  color: var(--crt-cyan);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.card-hex-theme {
+  font-size: 11px;
+  color: #a0c4de;
+  text-align: center;
+  line-height: 1.4;
+  background: #09131e;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.card-click-flip-prompt {
+  font-family: var(--font-pixel-en);
+  font-size: 8px;
+  color: #61798d;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* 雙卦對照展示面板 (本卦 vs 之卦) */
+.hexagram-duo-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.hex-single-display-box {
+  background: #0d1622;
+  border: 2px solid var(--crt-border);
+  border-radius: 12px;
+  padding: 16px;
+  min-width: 220px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.hex-single-display-box.primary {
+  border-color: var(--crt-green);
+  box-shadow: 0 0 15px var(--crt-green-glow);
+}
+
+.hex-single-display-box.changed {
+  border-color: var(--crt-cyan);
+  box-shadow: 0 0 15px var(--crt-cyan-glow);
+}
+
+.hex-box-title {
+  font-family: var(--font-pixel-en);
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.hex-box-name {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  margin-top: 8px;
+}
+
+.hex-box-sub {
+  font-family: var(--font-terminal);
+  font-size: 15px;
+  color: var(--crt-text-dim);
+  text-align: center;
+}
+
+.hex-arrow-divider {
+  font-size: 28px;
+  color: var(--crt-amber);
+  animation: pulse-arrow 1.2s infinite ease-in-out;
+}
+
+@keyframes moving-pulse {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px var(--crt-red));
+  }
+  50% {
+    opacity: 0.35;
+    filter: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse-arrow {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; color: var(--crt-green); }
+}

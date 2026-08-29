@@ -1,0 +1,499 @@
+/* ==========================================================================
+   賽博易斷 (CyberIChing) - CRT 賽博終端機核心樣式 (terminal.css)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&family=Noto+Sans+TC:wght@400;700;900&display=swap');
+
+:root {
+  --crt-bg: #070a0e;
+  --terminal-bg: #0b1118;
+  --terminal-card-bg: #101923;
+  --crt-green: #00ff66;
+  --crt-green-glow: rgba(0, 255, 102, 0.4);
+  --crt-cyan: #00f0ff;
+  --crt-cyan-glow: rgba(0, 240, 255, 0.4);
+  --crt-amber: #ffb800;
+  --crt-amber-glow: rgba(255, 184, 0, 0.4);
+  --crt-red: #ff2a5f;
+  --crt-red-glow: rgba(255, 42, 95, 0.6);
+  --crt-purple: #b026ff;
+  --crt-dim: #2a4153;
+  --crt-text-dim: #7395a8;
+  --crt-border: #1a3344;
+  --crt-border-bright: #00ff66;
+  
+  --font-pixel-en: 'Press Start 2P', 'Silkscreen', monospace;
+  --font-terminal: 'VT323', monospace;
+  --font-main: 'Noto Sans TC', 'VT323', monospace, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--crt-bg);
+  color: var(--crt-green);
+  font-family: var(--font-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* CRT 螢幕實體外框 (Monitor Bezel) */
+.crt-monitor {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 90vh;
+  background: #14171c;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 
+    0 0 0 4px #0b0d11,
+    0 0 0 10px #242933,
+    0 25px 60px rgba(0, 0, 0, 0.9),
+    inset 0 2px 6px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* CRT 頂部控制面板與狀態指示燈 */
+.monitor-top-bezel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #202632;
+  margin-bottom: 16px;
+  font-family: var(--font-pixel-en);
+  font-size: 10px;
+  color: #617387;
+  letter-spacing: 1px;
+}
+
+.monitor-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.monitor-brand-name {
+  color: #a0aec0;
+  font-weight: bold;
+}
+
+.monitor-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.bezel-btn {
+  background: #111a24;
+  border: 1px solid var(--crt-border);
+  color: var(--crt-text-dim);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-family: var(--font-pixel-en);
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.bezel-btn.icon-only-btn {
+  font-size: 14px;
+  padding: 6px 10px;
+  min-width: 38px;
+  height: 32px;
+}
+
+.bezel-btn:hover {
+  background: #182535;
+  border-color: var(--crt-cyan);
+  color: #fff;
+  box-shadow: 0 0 8px var(--crt-cyan-glow);
+}
+
+.bezel-btn.active {
+  background: #00ff6615;
+  color: var(--crt-green);
+  border-color: var(--crt-green);
+  box-shadow: 0 0 10px var(--crt-green-glow);
+}
+
+/* =========================================================================
+   手機與平板響應式優化 (Mobile & Tablet Responsiveness)
+   ========================================================================= */
+@media (max-width: 768px) {
+  body {
+    padding: 6px;
+  }
+
+  .cyber-monitor-frame {
+    border-width: 4px;
+    border-radius: 12px;
+    padding: 4px;
+  }
+
+  .monitor-top-bezel {
+    padding: 8px 12px;
+  }
+
+  .monitor-brand-name {
+    font-size: 10px;
+  }
+
+  .terminal-header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .terminal-title h1 {
+    font-size: 13px;
+  }
+
+  .terminal-tabs {
+    width: 100%;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    font-size: 13px;
+    padding: 8px 12px;
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .terminal-body {
+    padding: 12px 10px 24px 10px;
+  }
+
+  .divination-result-split-workspace {
+    flex-direction: column;
+  }
+
+  .result-left-visual-zone {
+    width: 100%;
+    flex: none;
+    align-items: center;
+  }
+
+  .academy-split-workspace {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .academy-left-card-zone {
+    width: 100%;
+    flex: none;
+  }
+
+  .academy-right-quiz-zone {
+    width: 100%;
+    max-width: 100%;
+    padding: 14px;
+  }
+
+  .academy-controls-bar {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quiz-options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .coins-display-row {
+    gap: 10px;
+  }
+
+  .pixel-coin {
+    width: 50px;
+    height: 50px;
+  }
+
+  .pixel-coin.coin-heads::after {
+    width: 12px;
+    height: 12px;
+  }
+
+  .pixel-coin.coin-tails::after {
+    width: 14px;
+    height: 14px;
+  }
+
+  .card-perspective-container {
+    width: 260px;
+    height: 350px;
+  }
+
+  .pixel-card {
+    width: 260px;
+    height: 350px;
+  }
+}
+
+.led-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #333;
+}
+
+.led-indicator.on-green {
+  background: var(--crt-green);
+  box-shadow: 0 0 8px var(--crt-green);
+}
+
+.led-indicator.on-red {
+  background: var(--crt-red);
+  box-shadow: 0 0 8px var(--crt-red);
+}
+
+/* CRT 內層發光顯示螢幕 (Screen Surface) */
+.crt-screen {
+  background-color: var(--terminal-bg);
+  border-radius: 12px;
+  border: 2px solid #1c2736;
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.85);
+}
+
+/* 掃描線特效 (Scanlines) */
+.crt-screen::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.35) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  z-index: 20;
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.crt-screen.no-scanlines::before,
+.crt-screen.no-scanlines::after {
+  display: none;
+}
+
+/* 螢幕微閃爍與光暈 (Flicker & Vignette) */
+.crt-screen::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  pointer-events: none;
+  z-index: 21;
+}
+
+.monitor-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.monitor-brand .blinking-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: var(--crt-green);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--crt-green), 0 0 20px var(--crt-green-glow);
+  animation: blink 1s infinite steps(2, start);
+}
+
+.monitor-brand-name {
+  font-family: var(--font-pixel-en);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: var(--crt-green);
+  text-shadow: 0 0 10px var(--crt-green-glow);
+}
+
+.monitor-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.bezel-btn {
+  background: #111a24;
+  border: 1px solid var(--crt-border);
+  color: var(--crt-text-dim);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-family: var(--font-pixel-en);
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* 終端導航 Tab 列 (置中、放大顯眼) */
+.terminal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  background: #0b121c;
+  border-bottom: 2px solid var(--crt-border);
+  position: relative;
+  z-index: 25;
+}
+
+.terminal-tabs {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 720px;
+  justify-content: center;
+}
+
+/* 導航分頁按鈕 (賽博占斷、易經學院、64卦全典 - 字體加大顯眼) */
+.tab-btn {
+  background: #131d2a;
+  border: 2px solid var(--crt-border);
+  color: #a9c7e6;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font-main);
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+.tab-btn:hover {
+  background: #1d2c3e;
+  color: #fff;
+  border-color: var(--crt-cyan);
+  box-shadow: 0 0 14px var(--crt-cyan-glow);
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  background: #00ff6622;
+  color: #fff;
+  border-color: var(--crt-green);
+  box-shadow: 0 0 18px var(--crt-green-glow), inset 0 0 10px rgba(0, 255, 102, 0.25);
+  text-shadow: 0 0 10px var(--crt-green);
+}
+
+/* 主視窗內容區域 (Main Content Area) */
+.terminal-body {
+  padding: 24px;
+  flex: 1;
+  position: relative;
+  z-index: 22;
+  overflow-y: auto;
+  max-height: calc(90vh - 120px);
+}
+
+/* 自定義復古滾動條 */
+.terminal-body::-webkit-scrollbar {
+  width: 8px;
+}
+.terminal-body::-webkit-scrollbar-track {
+  background: #0b1118;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background: #1a3344;
+  border: 1px solid var(--crt-green);
+}
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--crt-green);
+}
+
+/* 面板切換動效 */
+.tab-pane {
+  display: none;
+  animation: fadeIn 0.25s ease-in-out;
+}
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 手機與窄螢幕適配 */
+@media (max-width: 768px) {
+  body {
+    padding: 6px;
+  }
+  .crt-monitor {
+    padding: 12px;
+    border-radius: 14px;
+    min-height: 96vh;
+  }
+  .terminal-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px;
+  }
+  .terminal-tabs {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .tab-btn {
+    padding: 6px 10px;
+    font-size: 9px;
+    white-space: nowrap;
+  }
+  .terminal-body {
+    padding: 12px;
+  }
+}

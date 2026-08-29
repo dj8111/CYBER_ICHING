@@ -1,0 +1,1000 @@
+/* ==========================================================================
+   賽博易斷 (CyberIChing) - 元件與互動模組樣式 (components.css)
+   ========================================================================== */
+
+/* 1. 終端控制台按鈕 (Terminal Buttons) */
+.btn-cyber {
+  background: #101c29;
+  border: 2px solid var(--crt-green);
+  color: var(--crt-green);
+  font-family: var(--font-pixel-en);
+  font-size: 11px;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease-out;
+  box-shadow: 0 4px 0 #070d13, 0 0 10px var(--crt-green-glow);
+  text-transform: uppercase;
+}
+
+.btn-cyber:hover {
+  background: var(--crt-green);
+  color: #0b1118;
+  box-shadow: 0 2px 0 #070d13, 0 0 20px var(--crt-green);
+  transform: translateY(2px);
+}
+
+.btn-cyber:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+.btn-cyber.btn-cyan {
+  border-color: var(--crt-cyan);
+  color: var(--crt-cyan);
+  box-shadow: 0 4px 0 #070d13, 0 0 10px var(--crt-cyan-glow);
+}
+.btn-cyber.btn-cyan:hover {
+  background: var(--crt-cyan);
+  color: #0b1118;
+  box-shadow: 0 2px 0 #070d13, 0 0 20px var(--crt-cyan);
+}
+
+.btn-cyber.btn-amber {
+  border-color: var(--crt-amber);
+  color: var(--crt-amber);
+  box-shadow: 0 4px 0 #070d13, 0 0 10px var(--crt-amber-glow);
+}
+.btn-cyber.btn-amber:hover {
+  background: var(--crt-amber);
+  color: #0b1118;
+  box-shadow: 0 2px 0 #070d13, 0 0 20px var(--crt-amber);
+}
+
+.btn-cyber.btn-red {
+  border-color: var(--crt-red);
+  color: var(--crt-red);
+  box-shadow: 0 4px 0 #070d13, 0 0 10px var(--crt-red-glow);
+}
+.btn-cyber.btn-red:hover {
+  background: var(--crt-red);
+  color: #0b1118;
+}
+
+/* 2. 占斷輸入終端區與起卦排版 (Casting Split Grid) */
+.divination-casting-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+@media (max-width: 860px) {
+  .divination-casting-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.divination-input-matrix {
+  background: #0d1520;
+  border: 2px solid var(--crt-border);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.terminal-prompt-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-pixel-en);
+  font-size: 11px;
+  color: var(--crt-cyan);
+  margin-bottom: 12px;
+}
+
+.cyber-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cyber-input {
+  width: 100%;
+  background: #070b10;
+  border: 2px solid var(--crt-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #fff;
+  font-family: var(--font-terminal);
+  font-size: 19px;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.cyber-input:focus {
+  border-color: var(--crt-cyan);
+  box-shadow: 0 0 12px var(--crt-cyan-glow);
+}
+
+.category-tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.category-chip {
+  background: #111a26;
+  border: 1px solid var(--crt-border);
+  color: var(--crt-text-dim);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.category-chip:hover {
+  border-color: var(--crt-amber);
+  color: #fff;
+}
+
+/* 2.5 熱門情境快速填入按鈕 (Quick Prompt Chips) */
+.quick-prompts-wrapper {
+  margin-top: 10px;
+  background: #080d14;
+  border: 1px dashed var(--crt-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.quick-prompt-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.quick-prompt-btn {
+  background: #0f1824;
+  border: 1px solid #1f2e42;
+  color: #a0bed9;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.quick-prompt-btn:hover {
+  background: #19283d;
+  color: #fff;
+  border-color: var(--crt-cyan);
+  box-shadow: 0 0 6px var(--crt-cyan-glow);
+}
+
+/* 5. 階層式解卦報告卡片與診斷速查 (Hierarchical Reading & Accordion) */
+.reading-report-card {
+  background: #0d1622;
+  border: 2px solid var(--crt-border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+/* 卦象診斷速查卡 (Oracle Summary Box) */
+.oracle-summary-box {
+  background: linear-gradient(135deg, #101b2a, #0b1522);
+  border: 2px solid var(--crt-cyan);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 0 16px var(--crt-cyan-glow);
+}
+
+.oracle-summary-title {
+  font-family: var(--font-pixel-en);
+  font-size: 11px;
+  color: var(--crt-cyan);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.oracle-summary-content {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #fff;
+}
+
+.oracle-summary-highlight {
+  color: var(--crt-amber);
+  font-weight: bold;
+}
+
+/* 手風琴摺疊樣式 (Accordion Structure) */
+.accordion-item {
+  border: 1px solid var(--crt-border);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  background: #090f17;
+  transition: all 0.2s ease;
+}
+
+.accordion-item.active {
+  border-color: var(--crt-green);
+  box-shadow: 0 0 10px var(--crt-green-glow);
+}
+
+.accordion-header {
+  padding: 12px 16px;
+  background: #111a26;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  font-size: 14px;
+  font-weight: bold;
+  color: #d8eaff;
+  transition: background 0.15s;
+}
+
+.accordion-header:hover {
+  background: #182535;
+  color: #fff;
+}
+
+.accordion-icon {
+  font-family: var(--font-pixel-en);
+  font-size: 10px;
+  color: var(--crt-cyan);
+  transition: transform 0.2s ease;
+}
+
+.accordion-item.active .accordion-icon {
+  transform: rotate(90deg);
+  color: var(--crt-green);
+}
+
+.accordion-body {
+  padding: 16px;
+  display: none;
+  border-top: 1px dashed var(--crt-border);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.accordion-item.active .accordion-body {
+  display: block;
+}
+
+.report-section {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* 3. 互動投擲銅錢區 (Pure Color Representation: Gold = Heads/Yang, Bronze/Teal = Tails/Yin) */
+.coin-toss-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: #090f16;
+  border: 2px dashed var(--crt-border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.coins-display-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  margin: 6px 0;
+}
+
+/* 銅錢本體基礎造型 (純顏色代表，無多餘文字) */
+.pixel-coin {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  user-select: none;
+}
+
+/* 正面 (金幣 / 陽·3) - 亮金光芒 + 方孔幾何標誌 */
+.pixel-coin.coin-heads {
+  background: radial-gradient(circle at 35% 35%, #fff176, #fbc02d 65%, #e65100);
+  border: 3px solid #fff9c4;
+  box-shadow: 0 4px 0 #bf360c, 0 0 16px rgba(255, 238, 88, 0.7);
+}
+
+.pixel-coin.coin-heads::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #3e2723;
+  border: 2px solid #fff9c4;
+  border-radius: 2px;
+}
+
+/* 背面 (青銅幣 / 陰·2) - 幽綠青銅 + 圓孔同心圓標誌 */
+.pixel-coin.coin-tails {
+  background: radial-gradient(circle at 35% 35%, #80cbc4, #00796b 65%, #00251a);
+  border: 3px solid #b2dfdb;
+  box-shadow: 0 4px 0 #00251a, 0 0 16px rgba(0, 150, 136, 0.7);
+}
+
+.pixel-coin.coin-tails::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #b2dfdb;
+  border-radius: 50%;
+  background: #00251a;
+}
+
+.pixel-coin.spinning {
+  animation: coin-spin 0.4s infinite linear;
+}
+
+.cast-progress-bar {
+  width: 100%;
+  max-width: 320px;
+  height: 10px;
+  background: #111a26;
+  border: 1px solid var(--crt-border);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cast-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--crt-cyan), var(--crt-green));
+  width: 0%;
+  transition: width 0.25s ease-out;
+  box-shadow: 0 0 8px var(--crt-green);
+}
+
+/* 4. 結果頁面左右並排工作區 (Result Split Workspace) */
+.divination-result-split-workspace {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.result-left-visual-zone {
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-right-report-zone {
+  flex: 1;
+  min-width: 320px;
+}
+
+/* 4. 占斷結果頁頂部操作列與分享面板 (Result Stage Top Bar & Share) */
+.result-top-action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0e1724;
+  border: 2px solid var(--crt-border);
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.top-share-panel {
+  margin-top: 0 !important;
+  margin-bottom: 20px;
+  background: #0a111a;
+  border-color: var(--crt-amber);
+  box-shadow: 0 0 16px var(--crt-amber-glow);
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* 5. 階層式解卦報告卡片 (Hierarchical Reading Output) */
+.reading-report-card {
+  background: #0d1622;
+  border: 2px solid var(--crt-border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.report-section {
+  margin-bottom: 20px;
+  border-bottom: 1px dashed #1c2b3d;
+  padding-bottom: 16px;
+}
+
+.report-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.section-badge-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-pixel-en);
+  font-size: 11px;
+  color: var(--crt-amber);
+  margin-bottom: 10px;
+}
+
+.zhuxi-focus-box {
+  background: #15202d;
+  border-left: 4px solid var(--crt-green);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 12px 0;
+}
+
+.zhuxi-rule-tag {
+  font-family: var(--font-pixel-en);
+  font-size: 10px;
+  color: var(--crt-green);
+  margin-bottom: 6px;
+}
+
+.zhuxi-focus-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #e2f1ff;
+}
+
+.takashima-box {
+  background: #181c26;
+  border: 1px solid #364155;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 10px 0;
+}
+
+.takashima-quote {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #d1e2f3;
+  margin-bottom: 8px;
+}
+
+.takashima-case-tag {
+  display: inline-block;
+  background: #ffb80020;
+  color: var(--crt-amber);
+  border: 1px solid var(--crt-amber);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  margin-bottom: 6px;
+  font-family: var(--font-pixel-en);
+}
+
+.modern-action-box {
+  background: #0f241a;
+  border: 1px solid #00ff6640;
+  border-radius: 8px;
+  padding: 16px;
+  color: #99ffd0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* 6. 易經學院 / 抽認卡左右並排工作區 (Side-by-side Flashcard Dashboard) */
+.academy-controls-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0d1520;
+  border: 2px solid var(--crt-border);
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.streak-score-matrix {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-pixel-en);
+  font-size: 10px;
+  flex-wrap: wrap;
+}
+
+.mastery-level-badge {
+  background: linear-gradient(135deg, #ffd70025, #ff990035);
+  border: 1px solid #ffd700;
+  color: #ffd700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.streak-badge {
+  background: #ff2a5f20;
+  border: 1px solid var(--crt-red);
+  color: var(--crt-red);
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.accuracy-badge {
+  background: #00ff6620;
+  border: 1px solid var(--crt-green);
+  color: var(--crt-green);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* 易經學習口訣手風琴區 (Collapsible Mnemonics) */
+.academy-mnemonics-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.mnemonic-accordion-item {
+  background: #080e16;
+  border: 1px solid var(--crt-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.mnemonic-accordion-item.active {
+  border-color: var(--crt-amber);
+  box-shadow: 0 0 10px var(--crt-amber-glow);
+}
+
+.mnemonic-accordion-header {
+  padding: 8px 14px;
+  background: #0d1522;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  font-size: 13px;
+  font-weight: bold;
+  color: #c4defa;
+  transition: background 0.15s;
+}
+
+.mnemonic-accordion-header:hover {
+  background: #142033;
+  color: #fff;
+}
+
+.mnemonic-toggle-icon {
+  font-family: var(--font-pixel-en);
+  font-size: 9px;
+  color: var(--crt-text-dim);
+  transition: all 0.2s ease;
+}
+
+.mnemonic-accordion-item.active .mnemonic-toggle-icon {
+  color: var(--crt-amber);
+}
+
+.mnemonic-accordion-body {
+  padding: 12px 14px;
+  display: none;
+  border-top: 1px dashed #1a293d;
+  background: #060b12;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.mnemonic-accordion-item.active .mnemonic-accordion-body {
+  display: block;
+}
+
+.mnemonic-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.mnemonic-pill {
+  background: #0b131e;
+  border: 1px solid #1c2b3e;
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 12px;
+  color: #9ebdd9;
+  text-align: center;
+}
+
+/* 卦序歌樣式 */
+.guaxu-song-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.guaxu-section {
+  background: #0a111a;
+  border: 1px solid #172436;
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.guaxu-badge {
+  display: inline-block;
+  font-family: var(--font-pixel-en);
+  font-size: 9px;
+  color: var(--crt-amber);
+  border: 1px solid var(--crt-amber);
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+
+.guaxu-poem-text {
+  font-family: var(--font-terminal);
+  font-size: 16px;
+  line-height: 1.7;
+  color: #e2f1ff;
+  letter-spacing: 1px;
+}
+
+/* 八卦五行色彩體系 (Eight Trigrams Elemental Palette) */
+.trig-tag-qian { color: #ffd700; font-weight: bold; } /* 乾天·金 */
+.trig-tag-kun  { color: #e0a96d; font-weight: bold; } /* 坤地·土 */
+.trig-tag-kan  { color: #00d2ff; font-weight: bold; } /* 坎水·水 */
+.trig-tag-li   { color: #ff4757; font-weight: bold; } /* 離火·火 */
+.trig-tag-zhen { color: #b084cc; font-weight: bold; } /* 震雷·紫 */
+.trig-tag-xun  { color: #2ed573; font-weight: bold; } /* 巽風·木 */
+.trig-tag-gen  { color: #c28b5b; font-weight: bold; } /* 艮山·褐 */
+.trig-tag-dui  { color: #ff6b81; font-weight: bold; } /* 兌澤·粉 */
+
+.trigram-chip {
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 11px;
+  border: 1px solid currentColor;
+}
+
+.academy-split-workspace {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.academy-left-card-zone {
+  flex: 0 0 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.academy-right-quiz-zone {
+  flex: 1;
+  min-width: 300px;
+  max-width: 540px;
+  background: #0a111a;
+  border: 2px solid var(--crt-border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.quiz-prompt-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 1px dashed var(--crt-border);
+  padding-bottom: 10px;
+}
+
+.quiz-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0;
+  width: 100%;
+}
+
+.quiz-opt-btn {
+  background: #111a26;
+  border: 2px solid var(--crt-border);
+  color: #fff;
+  padding: 14px 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s;
+}
+
+.quiz-opt-btn:hover {
+  background: #1b2838;
+  border-color: var(--crt-cyan);
+  box-shadow: 0 0 10px var(--crt-cyan-glow);
+}
+
+.quiz-opt-btn.correct {
+  background: #00ff6625 !important;
+  border-color: var(--crt-green) !important;
+  color: var(--crt-green) !important;
+  box-shadow: 0 0 15px var(--crt-green-glow);
+}
+
+.quiz-opt-btn.wrong {
+  background: #ff2a5f25 !important;
+  border-color: var(--crt-red) !important;
+  color: var(--crt-red) !important;
+  box-shadow: 0 0 15px var(--crt-red-glow);
+}
+
+.quiz-next-action-row {
+  margin-top: 6px;
+}
+
+/* 7. 社群分享彈窗與響應式優化 (Share Modal Responsive) */
+.share-modal-box {
+  background: #0d1520;
+  border: 2px solid var(--crt-amber);
+  border-radius: 12px;
+  max-width: 540px;
+  width: 92vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 22px;
+  box-shadow: 0 0 30px var(--crt-amber-glow);
+  position: relative;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@media (max-width: 520px) {
+  .share-modal-box {
+    padding: 16px 12px;
+  }
+
+  .share-qr-preview-row {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .share-buttons-row {
+    flex-direction: column;
+  }
+
+  .share-buttons-row button {
+    width: 100% !important;
+  }
+}
+
+.qr-canvas-box {
+  background: #000;
+  padding: 6px;
+  border: 2px solid var(--crt-green);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 0 12px var(--crt-green-glow);
+}
+
+.qr-canvas-box canvas {
+  image-rendering: pixelated;
+  max-width: 120px;
+  height: auto;
+}
+
+.qr-label {
+  font-family: var(--font-pixel-en);
+  font-size: 8px;
+  color: var(--crt-green);
+}
+
+.share-actions-group {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.share-url-box {
+  display: flex;
+  align-items: center;
+  background: #070b10;
+  border: 1px solid var(--crt-border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: var(--font-terminal);
+  font-size: 16px;
+  color: var(--crt-cyan);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.share-buttons-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 8. 64 卦全典資料庫網格 (Codex Grid - 橫向圖文排版) */
+.codex-search-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.codex-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.codex-card-item {
+  background: #0d1520;
+  border: 1px solid var(--crt-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.codex-card-item:hover {
+  border-color: var(--crt-green);
+  background: #142132;
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px var(--crt-green-glow);
+}
+
+/* 橫向迷你 6 爻像素圖徽 */
+.codex-mini-badge {
+  width: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #060a0f;
+  padding: 4px;
+  border: 1px solid #1a2838;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.codex-mini-line {
+  height: 3px;
+  border-radius: 1px;
+  background: var(--crt-green);
+}
+.codex-mini-line.yin {
+  background: transparent;
+  display: flex;
+  gap: 2px;
+}
+.codex-mini-line.yin span {
+  flex: 1;
+  background: var(--crt-green);
+  border-radius: 1px;
+}
+
+.codex-card-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.codex-item-number {
+  font-family: var(--font-pixel-en);
+  font-size: 8px;
+  color: var(--crt-amber);
+}
+
+.codex-item-name {
+  font-size: 15px;
+  font-weight: bold;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.codex-item-sub {
+  font-family: var(--font-terminal);
+  font-size: 13px;
+  color: var(--crt-cyan);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 8. 浮動通知提示 (Toast) */
+.cyber-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #0f1c29;
+  border: 2px solid var(--crt-green);
+  color: var(--crt-green);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font-pixel-en);
+  font-size: 11px;
+  z-index: 1000;
+  box-shadow: 0 0 20px var(--crt-green-glow);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  pointer-events: none;
+}
+
+.cyber-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+@keyframes coin-spin {
+  0% { transform: rotateY(0deg) scale(1); }
+  50% { transform: rotateY(180deg) scale(1.15); }
+  100% { transform: rotateY(360deg) scale(1); }
+}
+
+@media (max-width: 600px) {
+  .quiz-options-grid {
+    grid-template-columns: 1fr;
+  }
+  .coins-display-row {
+    gap: 10px;
+  }
+  .pixel-coin {
+    width: 44px;
+    height: 44px;
+  }
+}

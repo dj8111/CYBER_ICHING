@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>賽博易斷 CyberIChing - 8-Bit 像素易經占卜與學習系統</title>
+  <meta name="description" content="結合 8-bit 復古像素美學、CRT 賽博終端機與《高島易斷》實戰解卦的現代易經占卜與 64 卦抽認卡學習平台。">
+
+  <!-- 樣式表 -->
+  <link rel="stylesheet" href="css/terminal.css">
+  <link rel="stylesheet" href="css/card.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- CRT 復古硬體外框 -->
+  <main class="crt-monitor">
+    
+    <!-- 頂部硬體面板 -->
+    <header class="monitor-top-bezel">
+      <div class="monitor-brand">
+        <span class="blinking-dot" title="SYSTEM ACTIVE"></span>
+        <span class="monitor-brand-name">CYBER_ICHING</span>
+      </div>
+      <div class="monitor-controls">
+        <button class="bezel-btn active icon-only-btn" id="btn-toggle-sound" title="切換 8-bit 合成音效">
+          <span id="sound-status-icon">🔊</span>
+        </button>
+        <button class="bezel-btn icon-only-btn" id="btn-global-share" title="分享本系統網址與 QR Code">
+          📤
+        </button>
+      </div>
+    </header>
+
+    <!-- CRT 螢幕主體 -->
+    <div class="crt-screen" id="main-crt-screen">
+      
+      <!-- 終端指令導航 Tab 列 (去除重複標題，文字顯眼放大) -->
+      <nav class="terminal-header" aria-label="系統導航">
+        <div class="terminal-tabs">
+          <button class="tab-btn active" data-tab="tab-divination" id="nav-divination">
+            🔮 賽博占斷
+          </button>
+          <button class="tab-btn" data-tab="tab-academy" id="nav-academy">
+            🎓 易經學院
+          </button>
+          <button class="tab-btn" data-tab="tab-codex" id="nav-codex">
+            📜 64卦全典
+          </button>
+        </div>
+      </nav>
+
+      <!-- 終端主要內容顯示區 -->
+      <div class="terminal-body">
+        
+        <!-- ===================================================================
+             分頁一：賽博占斷與終端機解卦 (Divination Module)
+             =================================================================== -->
+        <section class="tab-pane active" id="tab-divination" aria-labelledby="nav-divination">
+          
+          <!-- 階段一：提問與起卦階段 (Stage 1: 左右並排 / 手機自適應) -->
+          <div id="divination-stage-cast">
+            
+            <div class="divination-casting-grid">
+              
+              <!-- 左欄：提問輸入與情境標籤 -->
+              <div class="divination-input-matrix" style="margin-bottom: 0;">
+                <div class="terminal-prompt-line">
+                  <span>&gt; ENTER_QUERY:</span>
+                  <span style="color: var(--crt-text-dim);">輸入占問事項</span>
+                </div>
+                
+                <div class="cyber-input-wrapper">
+                  <input type="text" id="divination-question-input" class="cyber-input" placeholder="例如：新事業融資與合作前景如何？" maxlength="80">
+                </div>
+
+                <!-- 情境標籤矩陣 -->
+                <div class="category-tag-container">
+                  <button class="category-chip active" data-cat="事業">💼 事業拓展</button>
+                  <button class="category-chip" data-cat="投資">📈 投資決策</button>
+                  <button class="category-chip" data-cat="人際">🤝 人際合作</button>
+                  <button class="category-chip" data-cat="感情">❤️ 情感機緣</button>
+                  <button class="category-chip" data-cat="決策">⚖️ 重大抉擇</button>
+                  <button class="category-chip" data-cat="健康">🧘 身心調養</button>
+                </div>
+
+                <!-- 熱門占問情境一鍵填入 (Quick Prompt Chips) -->
+                <div class="quick-prompts-wrapper">
+                  <div style="font-family: var(--font-pixel-en); font-size: 8px; color: var(--crt-text-dim); margin-bottom: 6px;">
+                    ⚡ 常用占問範例 (點擊一鍵帶入)：
+                  </div>
+                  <div class="quick-prompt-chips">
+                    <button class="quick-prompt-btn" data-q="新事業專案與投資拓展前景如何？" data-cat="事業">💼 新事業前景？</button>
+                    <button class="quick-prompt-btn" data-q="當前投資與資產配置應逢高或逢低？" data-cat="投資">📈 投資配置方向？</button>
+                    <button class="quick-prompt-btn" data-q="此合作夥伴是否值得長期信任？" data-cat="人際">🤝 合作夥伴信任？</button>
+                    <button class="quick-prompt-btn" data-q="轉換跑道與跳槽時機是否成熟？" data-cat="決策">⚖️ 轉換跑道時機？</button>
+                    <button class="quick-prompt-btn" data-q="近期感情緣分與發展趨勢如何？" data-cat="感情">❤️ 感情發展機緣？</button>
+                  </div>
+                </div>
+
+                <!-- 操作按鈕組 -->
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
+                  <button class="btn-cyber" id="btn-cast-single-line" style="flex: 1; min-width: 150px;">
+                    🎲 投擲單爻
+                  </button>
+                  <button class="btn-cyber btn-cyan" id="btn-quick-quantum-cast" style="flex: 1; min-width: 140px;">
+                    ⚡ 一鍵量子起卦
+                  </button>
+                  <button class="btn-cyber btn-red" id="btn-reset-divination" style="font-size: 9px; padding: 10px 14px;">
+                    🔄 重設
+                  </button>
+                </div>
+              </div>
+
+              <!-- 右欄：三枚銅錢純色塊展示與即時卦象生成 -->
+              <div class="coin-toss-stage" style="margin: 0; justify-content: center;">
+                <div style="font-family: var(--font-pixel-en); font-size: 10px; color: var(--crt-amber);">
+                  [ 3-COIN TOSS MATRIX ]
+                </div>
+
+                <!-- 3 枚銅錢 (純色彩代表：金色為陽/字，青銅為陰/花，無多餘文字) -->
+                <div class="coins-display-row">
+                  <div class="pixel-coin coin-heads" id="coin-1" title="金幣 (陽·3)"></div>
+                  <div class="pixel-coin coin-heads" id="coin-2" title="金幣 (陽·3)"></div>
+                  <div class="pixel-coin coin-heads" id="coin-3" title="金幣 (陽·3)"></div>
+                </div>
+
+                <div id="coin-toss-log-text" style="font-family: var(--font-terminal); font-size: 17px; color: var(--crt-cyan); text-align: center;">
+                  &gt; 等待起卦... 請點選左側按鈕
+                </div>
+
+                <!-- 起卦進度條 -->
+                <div class="cast-progress-bar" style="width: 100%;">
+                  <div class="cast-progress-fill" id="cast-progress-fill"></div>
+                </div>
+                <div id="cast-step-label" style="font-family: var(--font-pixel-en); font-size: 9px; color: var(--crt-amber);">
+                  [ 起卦進度: 0 / 6 爻 ]
+                </div>
+
+                <!-- 即時卦象線條生成 (初爻至上爻) -->
+                <div id="intermediate-lines-visual" style="width: 100%; max-width: 220px;"></div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- 階段二：獨立占斷結果與解卦頁面 (Stage 2: Result & Interpretation) -->
+          <div id="divination-stage-result" style="display: none;">
+            
+            <!-- 結果頁頂部操作列 (僅保留簡潔返回與專屬分享) -->
+            <div class="result-top-action-bar">
+              <button class="btn-cyber" id="btn-back-to-cast" style="font-size: 11px;">
+                ⬅ 重新起卦 (BACK)
+              </button>
+
+              <button class="btn-cyber btn-amber" id="btn-open-share-modal" style="font-size: 11px;">
+                📡 分享此占斷結果 (SHARE)
+              </button>
+            </div>
+
+            <!-- 結果頁左右並排工作區 (Left: 3D Card & Duo Hex; Right: Detailed Reading) -->
+            <div class="divination-result-split-workspace">
+              
+              <!-- 左欄：卡牌與卦象對照 -->
+              <div class="result-left-visual-zone">
+                <!-- 3D 像素 steps(6) 翻牌 -->
+                <div class="card-perspective-container" style="margin: 0 0 16px 0;">
+                  <div class="pixel-card" id="divination-pixel-card" title="點擊卡牌體驗 8-bit 定格翻牌">
+                    <!-- 背面 -->
+                    <div class="card-face card-back">
+                      <div class="card-back-pattern">
+                        <div class="card-back-icon">☯</div>
+                        <div class="card-back-title">CYBER_ICHING<br>DIVINATION</div>
+                        <div class="card-back-hint">六爻已聚 · 點擊揭曉</div>
+                      </div>
+                      <div class="card-click-flip-prompt">[ CLICK TO FLIP / 點擊翻牌 ]</div>
+                    </div>
+                    <!-- 正面 -->
+                    <div class="card-face card-front">
+                      <div class="card-header-badge">
+                        <span>HEXAGRAM MATRIX</span>
+                        <span class="card-binary-badge">BIN: 111111</span>
+                      </div>
+                      <div class="hexagram-visual-container"></div>
+                      <div class="card-hex-title">乾為天</div>
+                      <div class="card-hex-trigrams">上乾天 · 下乾天</div>
+                      <div class="card-hex-theme">天行健，自強不息</div>
+                      <div class="card-click-flip-prompt">[ 點擊卡牌翻轉背面 ]</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 本卦 vs 之卦對照 -->
+                <div class="hexagram-duo-display" style="margin: 0; gap: 12px;">
+                  <div class="hex-single-display-box primary" id="primary-hex-box" style="min-width: 130px; flex: 1;"></div>
+                  <div class="hex-arrow-divider">➔</div>
+                  <div class="hex-single-display-box changed" id="changed-hex-box" style="min-width: 130px; flex: 1;"></div>
+                </div>
+              </div>
+
+              <!-- 右欄：階層式解卦報告 (朱熹定則 + 周易原文 + 高島易斷 + 現代SOP，上方無多餘分享按鈕) -->
+              <div class="result-right-report-zone">
+                <div class="reading-report-card" id="reading-hierarchical-report" style="margin-top: 0;"></div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             分頁二：64卦像素記憶卡學習系統 (IChing Academy / Flashcards) - 左右並排佈局
+             =================================================================== -->
+        <section class="tab-pane" id="tab-academy" aria-labelledby="nav-academy">
+          
+          <!-- 學院頂部控制條與連勝統計 -->
+          <div class="academy-controls-bar">
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn-cyber active" id="btn-mode-a">
+                🅰️ 看卦象猜卦名
+              </button>
+              <button class="btn-cyber btn-cyan" id="btn-mode-b">
+                🅱️ 看卦名憶卦象
+              </button>
+              <button class="btn-cyber btn-amber" id="btn-toggle-error-mode">
+                📚 錯題本 (<span id="error-notebook-count">0</span>)
+              </button>
+            </div>
+
+            <!-- 連勝與數據矩陣 -->
+            <div class="streak-score-matrix">
+              <span class="mastery-level-badge" id="stat-mastery-level">🌱 易道學徒 (LV.1)</span>
+              <span class="streak-badge" id="stat-current-streak">🔥 連勝: 0</span>
+              <span class="accuracy-badge" id="stat-accuracy-rate">正確率: 100%</span>
+              <span style="color: var(--crt-text-dim);" id="stat-total-answered">題數: 0</span>
+              <button class="bezel-btn" id="btn-reset-academy-stats" style="font-size: 8px;">重設統計</button>
+            </div>
+          </div>
+
+          <!-- 抽認卡左右並排主工作區 (Left: Card, Right: Quiz Options & Next) -->
+          <div class="academy-split-workspace">
+            
+            <!-- 左欄：3D 卡牌本體 -->
+            <div class="academy-left-card-zone">
+              <div class="card-perspective-container" style="margin: 0;">
+                <div class="pixel-card" id="flashcard-pixel-card">
+                  <!-- 背面 (題目) -->
+                  <div class="card-face card-back">
+                    <div class="card-back-pattern" id="flashcard-back-content"></div>
+                    <div class="card-click-flip-prompt">[ 點擊卡牌可翻轉揭曉詳解 ]</div>
+                  </div>
+                  <!-- 正面 (答案與心法) -->
+                  <div class="card-face card-front">
+                    <div class="card-header-badge">
+                      <span>ANSWER REVEALED</span>
+                      <span class="card-binary-badge">BIN</span>
+                    </div>
+                    <div class="hexagram-visual-container"></div>
+                    <div class="card-hex-title"></div>
+                    <div class="card-hex-trigrams"></div>
+                    <div class="card-hex-theme"></div>
+                    <div class="card-click-flip-prompt">[ 點擊翻轉回題目 ]</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 右欄：選項矩陣與控制 -->
+            <div class="academy-right-quiz-zone">
+              <div class="quiz-prompt-header" id="quiz-prompt-header">
+                <span style="color: var(--crt-cyan); font-family: var(--font-pixel-en); font-size: 10px;">[ QUIZ_MATRIX ]</span>
+                <span style="color: var(--crt-text-dim); font-size: 12px;">選擇正確卦名以累積連勝：</span>
+              </div>
+
+              <!-- 四選一選項矩陣 (模式 A) -->
+              <div class="quiz-options-grid" id="quiz-options-container"></div>
+
+              <!-- 下一題按鈕 -->
+              <div class="quiz-next-action-row">
+                <button class="btn-cyber btn-cyan" id="btn-next-flashcard" style="font-size: 11px; padding: 12px 24px; width: 100%;">
+                  ⚡ 下一題 / NEXT QUESTION (Space)
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 易經學習口訣手風琴區 (移至最下方，預設收合，點選標題展開) -->
+          <div class="academy-mnemonics-container" style="margin-top: 20px;">
+            
+            <!-- 口訣 1：朱熹《八卦取象歌》 -->
+            <div class="mnemonic-accordion-item" id="accordion-bagua-song">
+              <div class="mnemonic-accordion-header" id="header-bagua-song">
+                <span>💡 [ 朱熹·八卦取象口訣 ]</span>
+                <span class="mnemonic-toggle-icon">▶ 點擊展開</span>
+              </div>
+              <div class="mnemonic-accordion-body" id="body-bagua-song">
+                <div class="mnemonic-items-grid">
+                  <div class="mnemonic-pill"><span class="trig-tag-qian">乾三連 ☰</span> (天/金)</div>
+                  <div class="mnemonic-pill"><span class="trig-tag-kun">坤六斷 ☷</span> (地/土)</div>
+                  <div class="mnemonic-pill"><span class="trig-tag-zhen">震仰盂 ☳</span> (雷/木)</div>
+                  <div class="mnemonic-pill"><span class="trig-tag-gen">艮覆碗 ☶</span> (山/土)</div>
+                  <div class="mnemonic-pill"><span class="trig-tag-li">離中虛 ☲</span> (火/火)</div>
+                  <div class="mnemonic-pill"><span class="trig-tag-kan">坎中滿 ☵</span> (水/水)</div>
+                  <div class="mnemonic-pill"><span class="trig-tag-dui">兌上缺 ☱</span> (澤/金)</div>
+                  <div class="mnemonic-pill"><span class="trig-tag-xun">巽下斷 ☴</span> (風/木)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 口訣 2：朱熹《上下經卦名次序歌》 (64卦速記) -->
+            <div class="mnemonic-accordion-item" id="accordion-guaxu-song">
+              <div class="mnemonic-accordion-header" id="header-guaxu-song">
+                <span>📜 [ 朱熹·64卦卦名次序歌 ]</span>
+                <span class="mnemonic-toggle-icon">▶ 點擊展開</span>
+              </div>
+              <div class="mnemonic-accordion-body" id="body-guaxu-song">
+                <div class="guaxu-song-box">
+                  <div class="guaxu-section">
+                    <span class="guaxu-badge">上經三十卦</span>
+                    <p class="guaxu-poem-text">
+                      乾坤屯蒙需訟師，比小畜兮履泰否。<br>
+                      同人大有謙豫隨，蠱臨觀兮噬嗑賁。<br>
+                      剝復頤大過，坎離三十備。
+                    </p>
+                  </div>
+                  <div class="guaxu-section" style="margin-top: 10px;">
+                    <span class="guaxu-badge" style="border-color: var(--crt-cyan); color: var(--crt-cyan);">下經三十四卦</span>
+                    <p class="guaxu-poem-text">
+                      咸恆遁兮及大壯，晉與明夷家人睽。<br>
+                      蹇解損益夬姤萃，升困井革鼎震繼。<br>
+                      艮漸歸妹豐旅巽，兌渙節兮中孚至。<br>
+                      既濟未濟是為終，下經三十四卦同。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ===================================================================
+             分頁三：64卦全典資料庫 (Codex Matrix)
+             =================================================================== -->
+        <section class="tab-pane" id="tab-codex" aria-labelledby="nav-codex">
+          
+          <!-- 搜尋與過濾列 -->
+          <div class="codex-search-bar">
+            <input type="text" id="codex-search-input" class="cyber-input" placeholder="🔍 搜尋卦名、序號、二進位或關鍵字..." style="flex: 1; min-width: 240px;">
+          </div>
+
+          <!-- 八卦快速篩選鈕 -->
+          <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+            <button class="category-chip active codex-filter-btn" data-trigram="ALL">全部 64 卦</button>
+            <button class="category-chip codex-filter-btn" data-trigram="乾">☰ 乾天</button>
+            <button class="category-chip codex-filter-btn" data-trigram="坤">☷ 坤地</button>
+            <button class="category-chip codex-filter-btn" data-trigram="震">☳ 震雷</button>
+            <button class="category-chip codex-filter-btn" data-trigram="坎">☵ 坎水</button>
+            <button class="category-chip codex-filter-btn" data-trigram="艮">☶ 艮山</button>
+            <button class="category-chip codex-filter-btn" data-trigram="巽">☴ 巽風</button>
+            <button class="category-chip codex-filter-btn" data-trigram="離">☲ 離火</button>
+            <button class="category-chip codex-filter-btn" data-trigram="兌">☱ 兌澤</button>
+          </div>
+
+          <!-- 64 卦網格列表 (橫向圖文並茂卡片) -->
+          <div class="codex-grid" id="codex-cards-grid"></div>
+
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- 卦象詳情 Modal 彈窗 (Codex Detail Modal) -->
+  <div id="codex-detail-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; padding: 16px;">
+    <div style="background: #0d1520; border: 2px solid var(--crt-green); border-radius: 12px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 24px; box-shadow: 0 0 30px var(--crt-green-glow); position: relative;">
+      <button id="codex-modal-close" class="btn-cyber btn-red" style="position: absolute; top: 16px; right: 16px; font-size: 10px; padding: 4px 8px;">✕ 關閉</button>
+      <div id="codex-modal-content-body"></div>
+    </div>
+  </div>
+
+  <!-- 占斷與系統專屬分享 Modal 彈窗 (Share Modal) -->
+  <div id="share-action-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center; padding: 12px;">
+    <div class="share-modal-box">
+      <button id="share-modal-close" class="btn-cyber btn-red" style="position: absolute; top: 14px; right: 14px; font-size: 10px; padding: 4px 8px;">✕ 關閉</button>
+      
+      <div style="font-family: var(--font-pixel-en); font-size: 12px; color: var(--crt-amber); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <span>📡</span> <span id="share-modal-heading">[ SHARE_MATRIX // 專屬分享 ]</span>
+      </div>
+
+      <div class="share-content-flex" style="flex-direction: column; align-items: stretch; gap: 16px;">
+        <!-- 像素 QR Code 預覽 (手機自動轉直排置中) -->
+        <div class="share-qr-preview-row" style="display: flex; gap: 16px; align-items: center; background: #070b10; border: 1px solid var(--crt-border); border-radius: 8px; padding: 14px;">
+          <div class="qr-canvas-box" style="flex-shrink: 0; margin: 0 auto;">
+            <canvas id="qr-pixel-canvas" width="130" height="130" title="像素 QRCode"></canvas>
+            <button class="btn-cyber" id="btn-download-qr" style="font-size: 8px; padding: 4px 8px; margin-top: 4px;">
+              💾 下載 QR 圖
+            </button>
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-family: var(--font-pixel-en); font-size: 9px; color: var(--crt-green); margin-bottom: 6px;">[ PIXEL QR CODE ]</div>
+            <div style="font-size: 13px; color: #a9c5de; line-height: 1.5;">手機直接掃描此二維碼，即可在行動裝置上自動還原此卦象與完整解讀！</div>
+          </div>
+        </div>
+
+        <!-- 網址複製與社群管道按鈕 -->
+        <div>
+          <div style="font-family: var(--font-pixel-en); font-size: 9px; color: var(--crt-text-dim); margin-bottom: 6px;">
+            &gt; 專屬短網址:
+          </div>
+          <div style="display: flex; gap: 8px; margin-bottom: 14px;">
+            <div class="share-url-box" id="share-url-text" style="flex: 1;">https://cyberiching.app/r?hex=1</div>
+            <button class="btn-cyber btn-cyan" id="btn-modal-copy-url" style="font-size: 9px; padding: 8px 12px; flex-shrink: 0;">
+              📋 複製
+            </button>
+          </div>
+
+          <div style="font-family: var(--font-pixel-en); font-size: 9px; color: var(--crt-text-dim); margin-bottom: 8px;">
+            &gt; 一鍵社群轉發:
+          </div>
+          <div class="share-buttons-row">
+            <button class="btn-cyber" id="btn-share-line" style="border-color: #00c300; color: #00c300; flex: 1;">
+              🟢 LINE 分享
+            </button>
+            <button class="btn-cyber" id="btn-share-fb" style="border-color: #1877f2; color: #1877f2; flex: 1;">
+              🔵 FB 分享
+            </button>
+            <button class="btn-cyber" id="btn-share-email" style="flex: 1;">
+              ✉️ EMAIL 轉發
+            </button>
+            <button class="btn-cyber btn-amber" id="btn-copy-ascii-report" style="width: 100%;">
+              📜 複製 ASCII 完整終端占斷報告
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 浮動通知提示 (Toast) -->
+  <div class="cyber-toast" id="cyber-toast"></div>
+
+  <!-- 程式模組載入 (自包含相容版，支援本機 file:/// 與 http 伺服器) -->
+  <script src="js/bundle.js"></script>
+</body>
+</html>
